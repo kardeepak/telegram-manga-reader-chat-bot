@@ -2,7 +2,8 @@ var mongoose = require('mongoose');
 var urljoin = require('url-join');
 var http = require('https');
 var Manga = require('./manga');
-var token = '441477319:AAFJbBasmd57eX3WI2Ot9JK9p8kpQaBi7Qk';
+var config = require('./config')
+var token = config.token;
 var baseurl = `https://api.telegram.org/bot${token}/`;
 
 mongoose.connect('mongodb://localhost/mangareaderbot');
@@ -12,7 +13,7 @@ function serialize(obj) {
 }
 
 function setWebhook() {
-	var data = {url : "https://bits-apogee.org/chatapp/"}
+	var data = {url : config.url}
 	var url = urljoin(baseurl, "setWebhook", serialize(data));
 	http.get(url, (res) => {
 		res.on('end', () => {
