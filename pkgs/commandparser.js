@@ -144,6 +144,7 @@ function parseCallback(callback_query) {
 
 
 module.exports = {
+	setWebhook : setWebhook,
 	sendMessage : sendMessage,
 	editMessageText : editMessageText,
 	parseCommand : parseCommand,
