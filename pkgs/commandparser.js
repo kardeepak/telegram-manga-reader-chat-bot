@@ -26,6 +26,12 @@ function sendMessage(chat_id, message, parse_mode) {
 	http.get(url);
 }
 
+
+function sendChatAction(chat_id, action) {
+	var url = urljoin(baseurl, 'sendChatAction', serialize({chat_id : chat_id, action : action}));
+	http.get(url);
+}
+
 function editMessageText(chat_id, message_id, message, parse_mode) {
 	var url = urljoin(baseurl, 'editMessageText', serialize({chat_id : chat_id, message_id : message_id, text : message, parse_mode : parse_mode}));
 	http.get(url);
@@ -107,6 +113,8 @@ function sendManga(name, chat_id, message_id, chapter, page, action) {
 	if(!page) page = 1;
 	Manga.findOne({name : {$regex:name, $options:'i'}}).exec().then(manga => {
 		if(!manga) return;
+		http.get(urljoin(baseurl, 'deleteMessage', serialize({chat_id:chat_id, message_id:message_id})));
+		http.get(urljoin(baseurl, 'sendChatAction', serialize({chat_id:chat_id, action:'upload_photo'})));
 		manga['get' + (action ? action : '') +'ImageUrl'](chapter, page)
 			.then((args) => {
 				var imgurl = args[0], chapter = args[1], page = args[2];
@@ -120,7 +128,6 @@ function sendManga(name, chat_id, message_id, chapter, page, action) {
 						]]
 					});
 					var url = urljoin(baseurl, 'sendPhoto', serialize(obj));
-					http.get(urljoin(baseurl, 'deleteMessage', serialize({chat_id:chat_id, message_id:message_id})));
 					http.get(url);
 				}
 			})
