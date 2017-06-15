@@ -67,6 +67,18 @@ function parseMessage(message) {
 		sendMessage(chat_id, "Sorry!! We do not understand your request,");
 }
 
+function sendStartMessage(chat_id) {
+	var s = `*Manga Reader Bot*
+	This bot can send your favorite manga to you.
+	Following command is to search through our manga directory:-
+	/search _keyword_ - Looks through manga directory for 'keyword'.
+	In results, select the index of manga to start reading.
+	After selecting manga you will be asked for the chapter number. If you reply to that message then you will be sent the first page of that chapter.
+	Then you can traverse through the chapter via the Next and Prev buttons.
+	`;
+	sendMessage(chat_id, s, 'Markdown');
+}
+
 function searchQuery(chat_id, query, page, message_id) {
 	const limit = 5;
 	if(!page || page < 0) page = 0;
