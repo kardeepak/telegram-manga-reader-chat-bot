@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var urljoin = require('url-join');
 var http = require('https');
 var Manga = require('./manga');
-var token = '393481409:AAF5bIUDfHZHzbLCoTX0ncdalqSOGpymqHw';
+var token = '441477319:AAFJbBasmd57eX3WI2Ot9JK9p8kpQaBi7Qk';
 var baseurl = `https://api.telegram.org/bot${token}/`;
 
 mongoose.connect('mongodb://localhost/mangareaderbot');
