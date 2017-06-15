@@ -9,6 +9,7 @@
 var app = require('../app');
 var debug = require('debug')('chatbot:server');
 var http = require('http');
+var setWebhook = require('../pkgs/commandparser').setWebhook;
 
 /**
  * Get port from environment and store in Express.
@@ -89,4 +90,5 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
+  setWebhook();
 }

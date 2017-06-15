@@ -7,8 +7,18 @@ var baseurl = `https://api.telegram.org/bot${token}/`;
 
 mongoose.connect('mongodb://localhost/mangareaderbot');
 
-function serialize( obj ) {
+function serialize(obj) {
 	return '?'+Object.keys(obj).reduce(function(a,k){if(obj[k] != null	) {a.push(k+'='+encodeURIComponent(obj[k]));} return a},[]).join('&')
+}
+
+function setWebhook() {
+	var data = {url : "https://bits-apogee.org/chatapp/"}
+	var url = urljoin(baseurl, "setWebhook", serialize(data));
+	http.get(url, (res) => {
+		res.on('end', () => {
+			console.log("Webhook Done...");
+		})
+	});
 }
 
 function sendMessage(chat_id, message, parse_mode) {
